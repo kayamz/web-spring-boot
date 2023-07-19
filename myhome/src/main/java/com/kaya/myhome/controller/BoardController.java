@@ -4,6 +4,8 @@ import com.kaya.myhome.model.Board;
 import com.kaya.myhome.repository.BoardRepository;
 import com.kaya.myhome.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +26,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Board> boards = boardRepository.findAll();
+        Page<Board> boards = boardRepository.findAll(PageRequest.of(0, 20));
         model.addAttribute("boards", boards);
         return "board/list";
     }
