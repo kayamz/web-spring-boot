@@ -20,9 +20,9 @@
     <title>Login</title>
   </head>
   <body class="text-center">
-    <form class="form-signin" th:action="@{/account/login}" method="post">
+    <form class="form-signin" th:action="@{/account/register}" method="post">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
         <div th:if="${param.error}" class="alert alert-danger" role="alert">
             Invalid username and password.
         </div>
@@ -33,12 +33,12 @@
         <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-        <div class="checkbox mb-3">
+        <!-- <div class="checkbox mb-3">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
           </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </div> -->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
       </form>
     <script
