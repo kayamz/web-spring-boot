@@ -2,12 +2,15 @@ package com.kaya.myhome.controller;
 
 import com.kaya.myhome.model.Board;
 import com.kaya.myhome.repository.BoardRepository;
+import com.kaya.myhome.service.BoardService;
 import com.kaya.myhome.validator.BoardValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +22,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -51,11 +57,13 @@ public class BoardController {
     }
 
     @PostMapping("/form")
-    public String greetingSubmit(@Valid Board board, BindingResult bindingResult){
+    public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication){
         boardValidator.validate(board, bindingResult);
         if (bindingResult.hasErrors()) {
             return "board/form";
         }
+        String username = authentication.getName();
+        boardService.save(username, board);
         boardRepository.save(board);
         return "redirect:/board/list";
     }
