@@ -26,6 +26,6 @@ public class User {
 
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany
-    private List<Board> boards = new ArrayList<>()
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards = new ArrayList<>();
 }
