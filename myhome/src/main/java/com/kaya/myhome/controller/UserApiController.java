@@ -1,4 +1,5 @@
 package com.kaya.myhome.controller;
+import com.kaya.myhome.model.Board;
 import com.kaya.myhome.model.User;
 import com.kaya.myhome.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,10 @@ class UserApiController {
                 .map(user -> {
 //                    user.setTitle(newUser.getTitle());
 //                    user.setContent(newUser.getContent());
+                    user.setBoards(newUser.getBoards());
+                    for(Board board : user.getBoards()) {
+                        board.setUser(user);
+                    }
                     return repository.save(user);
                 })
                 .orElseGet(() -> {
